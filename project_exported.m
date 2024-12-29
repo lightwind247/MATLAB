@@ -487,7 +487,7 @@ end
                     try
                         f = str2func(['@(x)',func]);
                     catch
-                        error('Hàm số không hợp lệ! Bạn cần ghi hàm dưới dạng mảng.');
+                        error('Hàm số không hợp lệ!');
                     end
                     if h<=0
                         error('Bước h phải lớn hơn 0!');
@@ -566,20 +566,20 @@ end
                     end
                 elseif ~isempty(func) && ~isnan(a) && ~isnan(b)
                     try
-                        fx = str2func(['@(x)', func]);
+                        fx = str2func(['@(x)', func]);                                            
+                        if N<=0
+                            error('N phải lớn hơn 0!');
+                        end
+                        switch selectedButton.Text
+                            case 'Hình thang'
+                                I = app.tichphanhinhthang(fx,a,b,N);
+                            case 'Simpson 1/3'
+                                I = app.tichphanSimpson1_3(fx,a,b,N);
+                            case 'Simpson 3/8'
+                                I = app.tichphanSimpson3_8(fx,a,b,N);
+                        end
                     catch
-                        error('Hàm số không hợp lệ!');
-                    end
-                    if N<=0
-                        error('N phải lớn hơn 0!');
-                    end
-                    switch selectedButton.Text
-                        case 'Hình thang'
-                            I = app.tichphanhinhthang(fx,a,b,N);
-                        case 'Simpson 1/3'
-                            I = app.tichphanSimpson1_3(fx,a,b,N);
-                        case 'Simpson 3/8'
-                            I = app.tichphanSimpson3_8(fx,a,b,N);
+                        error('Hàm số không hợp lệ! Bạn cần ghi hàm dưới dạng mảng.');
                     end
                 else
                     error('Hãy nhập đầy đủ dữ liệu x, y hoặc hàm số, cận và N!');
